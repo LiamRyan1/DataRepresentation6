@@ -34,7 +34,7 @@ const Reader = () => {
         ()=>{
           //runs asynchroniously i.e runs in the background without letting the  app doesnt hang
           //Requests from api
-          axios.get('http://localhost:3000/api/movies')
+          axios.get('http://localhost:4000/api/movies')
           .then((response)=>{
             console.log(response.data);
               //update state value
