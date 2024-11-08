@@ -11,6 +11,9 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 //listens for port connection and url to be / then executes function
 app.get('/api/movies', (req, res) => {
     const movies = [
@@ -38,7 +41,10 @@ app.get('/api/movies', (req, res) => {
     ];
     res.json({ movies });
 });
-
+app.post('/api/movies', (req, res) => {
+    console.log("Movie: "+ req.body.title);
+    res.send("movies recieved");
+})
 //always has to be at the bottom, code works down from the top and must end with this
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);

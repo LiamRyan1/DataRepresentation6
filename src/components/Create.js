@@ -1,18 +1,27 @@
 import { useState } from "react";
-
+import axios from "axios";
 function Create() {
   // intialise state vars using useState
   const [title, setTitle] = useState('');
-  const [year,setYear] = useState('');
-  const [poster,setPoster] = useState('');
+  const [year, setYear] = useState('');
+  const [poster, setPoster] = useState('');
   //form submission handler
+  // create.js
   const handleSubmit = (e) => {
-    e.preventDefault();//prevent default form behavoir
-    console.log(title);
-    console.log(year);
-    console.log(poster);
-  }
+    e.preventDefault();
 
+    console.log(`Title: ${title}, Year: ${year}, Poster: ${poster}`);
+
+    const movie = {
+      title: title,
+      year: year,
+      poster: poster
+    };
+
+    axios.post('http://localhost:4000/api/movies', movie)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.data));
+  };
   return (
     <div>
       <h2>This is my Create Component.</h2>
@@ -30,7 +39,7 @@ function Create() {
             value={year}
             onChange={(e) => { setYear(e.target.value) }}//update year state on change
           />
-           <label>Add Movie Poster Url: </label>
+          <label>Add Movie Poster Url: </label>
           <input type="text"
             className="form-control"
             value={poster}
